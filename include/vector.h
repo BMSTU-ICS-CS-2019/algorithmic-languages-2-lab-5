@@ -1,8 +1,10 @@
 #ifndef INCLUDE_VECTOR_H_
 #define INCLUDE_VECTOR_H_
 
+#include <algorithm>
 #include <iterator>
 #include <type_traits>
+#include <utility>
 
 namespace collection {
 
@@ -22,20 +24,39 @@ namespace collection {
         static_assert(std::is_assignable<Iterator, ConstIterator>::value,
                       "Iterator should be assignable from ConstIterator");
 
+    protected:
+
+        static constexpr size_t DEFAULT_CAPACITY = 16;
+
+        Pointer array_;
+        size_t size_, capacity_;
+
+    protected:
+        void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
+            std::copy(originalArray, originalArray + size, array_);
+        }
+
+        Vector(size_t const size) : array_(new T[size]), size_(size), capacity_(size) {}
+
     public:
         /* ********************************************** Constructors ********************************************** */
 
-        Vector();
+        Vector() : Vector(DEFAULT_CAPACITY) {}
 
-        Vector(Vector const& original);
+        Vector(Vector const& original) : Vector(original.size_) {
+            copyArrayNoChecks(original.array_);
+        }
 
-        Vector(Vector&& original);
+        Vector(Vector&& original) noexcept
+            : array_(std::exchange(original.array_, nullptr)),
+              size_(std::exchange(original.size_, 0)),
+              capacity_(std::exchange(original.capacity_, 0)) {}
 
         /* ****************************************** Assignment operators ****************************************** */
 
         Vector& operator=(Vector const& other);
 
-        Vector& operator=(Vector&& other);
+        Vector& operator=(Vector&& other) noexcept;
 
         /* ********************************************* Indexed access ********************************************* */
 
