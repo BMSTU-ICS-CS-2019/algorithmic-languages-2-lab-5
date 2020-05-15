@@ -32,7 +32,7 @@ namespace collection {
         size_t size_, capacity_;
 
     protected:
-        void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
+        inline void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
             std::copy(originalArray, originalArray + size, array_);
         }
 
@@ -54,9 +54,26 @@ namespace collection {
 
         /* ****************************************** Assignment operators ****************************************** */
 
-        Vector& operator=(Vector const& other);
+        Vector& operator=(Vector const& other) {
+            if (this != *other) {
+                if (size_ < other.size_) {
+                    array_ = new T[other.size_];
+                    size_ = other.size_;
+                    capacity_ = other.capacity_;
+                }
+                copyArrayNoChecks(other.array_, other.size_);
+            }
 
-        Vector& operator=(Vector&& other) noexcept;
+            return *this;
+        }
+
+        Vector& operator=(Vector&& other) noexcept {
+            std::swap(array_, other.array_);
+            std::swap(size_, other.size_);
+            std::swap(capacity_, other.capacity_);
+
+            return *this;
+        }
 
         /* ********************************************* Indexed access ********************************************* */
 
