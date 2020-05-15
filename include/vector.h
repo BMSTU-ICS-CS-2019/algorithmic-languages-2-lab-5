@@ -225,7 +225,7 @@ namespace collection {
 
         // differs from standard implementation as it
         void clear() {
-            for (size_t i = 0; i < size_; ++size_) allocator_.destroy(array_ + i);
+            for (size_t i = 0; i < size_; ++i) allocator_.destroy(array_ + i);
             size_ = 0;
         }
 
