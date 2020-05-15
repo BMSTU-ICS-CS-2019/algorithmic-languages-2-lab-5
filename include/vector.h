@@ -30,6 +30,10 @@ namespace collection {
 
     protected:
 
+        ~Vector() {
+            delete[] array_;
+        }
+
         inline void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
             std::copy(originalArray, originalArray + size, array_);
         }
