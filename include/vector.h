@@ -194,32 +194,32 @@ namespace collection {
 
         /* *********************************************** Modifiers *********************************************** */
 
-        void reserve(size_t const FIXME_NEWCapacity) {
-            if (capacity_ < FIXME_NEWCapacity) resizeToBigger(FIXME_NEWCapacity);
+        void reserve(size_t const newCapacity) {
+            if (capacity_ < newCapacity) resizeToBigger(newCapacity);
         }
 
-        void resize(size_t const FIXME_NEWSize, ValueType value /* = {}*/) {
+        void resize(size_t const newSize, ValueType value /* = {}*/) {
             auto const currentSize = size_;
-            if (FIXME_NEWSize < currentSize) resizeToSmaller(FIXME_NEWSize);
-            else if (FIXME_NEWSize > currentSize) {
-                resizeToBigger(FIXME_NEWSize);
-                std::fill(array_ + currentSize, array_ + FIXME_NEWSize, value);
+            if (newSize < currentSize) resizeToSmaller(newSize);
+            else if (newSize > currentSize) {
+                resizeToBigger(newSize);
+                std::fill(array_ + currentSize, array_ + newSize, value);
             }
         }
 
-        void resize(size_t const FIXME_NEWSize) {
+        void resize(size_t const newSize) {
             auto const currentSize = size_;
-            if (FIXME_NEWSize < currentSize) resizeToSmaller(FIXME_NEWSize);
-            else if (FIXME_NEWSize > currentSize)
-                resizeToBigger(FIXME_NEWSize);
+            if (newSize < currentSize) resizeToSmaller(newSize);
+            else if (newSize > currentSize)
+                resizeToBigger(newSize);
         }
 
-        void resize(size_t const FIXME_NEWSize, ConstReference value) {
+        void resize(size_t const newSize, ConstReference value) {
             auto const currentSize = size_;
-            if (FIXME_NEWSize < currentSize) resizeToSmaller(FIXME_NEWSize);
-            else if (FIXME_NEWSize > currentSize) {
-                resizeToBigger(FIXME_NEWSize);
-                std::fill(array_ + currentSize, array_ + FIXME_NEWSize, value);
+            if (newSize < currentSize) resizeToSmaller(newSize);
+            else if (newSize > currentSize) {
+                resizeToBigger(newSize);
+                std::fill(array_ + currentSize, array_ + newSize, value);
             }
         }
 
