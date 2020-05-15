@@ -21,9 +21,6 @@ namespace collection {
         typedef Pointer Iterator;
         typedef ConstPointer ConstIterator;
 
-        static_assert(std::is_assignable<Iterator, ConstIterator>::value,
-                      "Iterator should be assignable from ConstIterator");
-
     protected:
 
         static constexpr size_t DEFAULT_CAPACITY = 16;
