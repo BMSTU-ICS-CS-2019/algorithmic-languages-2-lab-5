@@ -79,6 +79,12 @@ namespace collection {
             return *this;
         }
 
+        void swap(Vector &other) noexcept {
+            std::swap(array_, other.array_);
+            std::swap(size_, other.size_);
+            std::swap(capacity_, other.capacity_);
+        }
+
         /* ********************************************* Indexed access ********************************************* */
 
         reference operator[](size_t index) {
