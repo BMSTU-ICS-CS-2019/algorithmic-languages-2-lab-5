@@ -200,26 +200,30 @@ namespace collection {
 
         void resize(size_t const newSize, ValueType value /* = {}*/) {
             auto const currentSize = size_;
-            if (newSize < currentSize) resizeToSmaller(newSize);
+            if (newSize < currentSize) size_ = newSize;
             else if (newSize > currentSize) {
                 resizeToBigger(newSize);
                 std::fill(array_ + currentSize, array_ + newSize, value);
+                size_ = newSize;
             }
         }
 
         void resize(size_t const newSize) {
             auto const currentSize = size_;
-            if (newSize < currentSize) resizeToSmaller(newSize);
-            else if (newSize > currentSize)
+            if (newSize < currentSize) size_ = newSize;
+            else if (newSize > currentSize) {
                 resizeToBigger(newSize);
+                size_ = newSize;
+            }
         }
 
         void resize(size_t const newSize, ConstReference value) {
             auto const currentSize = size_;
-            if (newSize < currentSize) resizeToSmaller(newSize);
+            if (newSize < currentSize) size_ = newSize;
             else if (newSize > currentSize) {
                 resizeToBigger(newSize);
                 std::fill(array_ + currentSize, array_ + newSize, value);
+                size_ = newSize;
             }
         }
 
