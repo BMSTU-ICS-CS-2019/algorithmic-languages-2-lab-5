@@ -32,8 +32,15 @@ namespace collection {
         size_t size_, capacity_;
 
     protected:
+
         inline void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
             std::copy(originalArray, originalArray + size, array_);
+        }
+
+        inline void checkRange(size_t const index) {
+            if (index >= size_) throw std::out_of_range(
+                    "Index " + std::to_string(index) + " should be less than size " + std::to_string(size_));
+                    "Index " + std::to_string(index) + " should be less than size " + std::to_string(size_));
         }
 
         Vector(size_t const size) : array_(new T[size]), size_(size), capacity_(size) {}
@@ -77,43 +84,81 @@ namespace collection {
 
         /* ********************************************* Indexed access ********************************************* */
 
-        reference operator[](size_t index);
+        reference operator[](size_t index) {
+            return array_[index];
+        }
 
-        ConstReference operator[](size_t index) const;
+        ConstReference operator[](size_t index) const {
+            return array_[index];
+        }
 
-        reference at(size_t index);
+        reference at(size_t const index) {
+            checkRange(index);
 
-        ConstReference const& at(size_t index) const;
+            return array_[index];
+        }
+
+        ConstReference at(size_t const index) const {
+            checkRange(index);
+
+            return array_[index];
+        }
 
         /* ***************************************** Iterators and pointers ***************************************** */
 
-        Iterator begin();
+        Iterator begin() {
+            return array_;
+        }
 
-        ConstIterator begin() const;
+        ConstIterator cbegin() const {
+            return array_;
+        }
 
-        Iterator end();
+        Iterator end() {
+            return array_ + size_;
+        }
 
-        ConstIterator cend() const;
+        ConstIterator cend() const {
+            return array_ + size_;
+        }
 
-        Iterator front();
+        Iterator front() {
+            return array_;
+        }
 
-        ConstIterator front() const;
+        ConstIterator front() const {
+            return array_;
+        }
 
-        Iterator back();
+        Iterator back() {
+            return array_ + size_ - 1;
+        }
 
-        ConstIterator back() const;
+        ConstIterator back() const {
+            return array_ + size_ - 1;
+        }
 
-        Pointer data();
+        Pointer data() {
+            return array_;
+        }
 
-        ConstPointer data() const;
+        ConstPointer data() const {
+            return array_;
+        }
 
         /* ********************************************* Data accessors ********************************************* */
 
-        bool empty() const noexcept;
+        bool empty() const noexcept {
+            return size_ == 0;
+        }
 
-        size_t size() const noexcept;
+        size_t size() const noexcept {
+            return size_;
+        }
 
-        size_t capacity() const noexcept;
+        size_t capacity() const noexcept {
+            return capacity_;
+        }
 
         /* *********************************************** Modifiers *********************************************** */
 
