@@ -16,8 +16,7 @@ namespace collection {
      */
     template<typename Value, typename Allocator = std::allocator<Value>>
     class Vector {
-        typedef std::iterator_traits<Value*> iteratorTraits;
-
+    public:
         typedef Value ValueType;
         typedef Value& reference;
         typedef Value const& ConstReference;
