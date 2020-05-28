@@ -176,7 +176,8 @@ namespace collection {
             }
         }
 
-        void uncheckedErase(ConstIterator const from, ConstIterator const to) noexcept {
+        void uncheckedErase(ConstIterator const from, ConstIterator const to)
+                noexcept(std::is_nothrow_move_constructible<ValueType>::value) {
             auto const end = cend();
             // move all elements after (to) to the left
             // target is the element on the left to which the element gets moved
@@ -197,7 +198,7 @@ namespace collection {
          * @note while marking this as {@code virtual} may bring possible overhead, this allows safe extension
          * of this class, while most (if not all) modern compilers are able to perform monomorphic inline caching
          */
-        virtual ~Vector() noexcept {
+        virtual ~Vector() noexcept(std::is_nothrow_destructible<ValueType>::value) {
             for (size_t i = 0; i < size_; ++i) Memory::destroy(allocator_, array_ + i);
             Memory::deallocate(allocator_, array_, capacity_);
         }
