@@ -3,14 +3,6 @@
 #include <ostream>
 #include <vector.h>
 
-#define _VECTOR_SHOWCASE(variable, operation)                                                                          \
-    std::cout << "Performing: " #variable "." #operation << "\n\t";                                                    \
-    variable.operation;                                                                                                \
-    std::cout << "Vector[empty=" << variable.empty() << ", size=" << variable.size()                                   \
-              << ", capacity=" << variable.capacity() << "]{\t";                                                       \
-    for (auto const element : vector) std::cout << element << '\t';                                                    \
-    std::cout << '}' << std::endl;
-
 class CustomStruct {
     std::string text;
     int number;
@@ -28,6 +20,14 @@ std::ostream& operator<<(std::ostream& output, CustomStruct const& customStruct)
 
     return output;
 }
+
+#define _VECTOR_SHOWCASE(variable, operation)                                                                          \
+    std::cout << "Performing: " #variable "." #operation << "\n\t";                                                    \
+    variable.operation;                                                                                                \
+    std::cout << "Vector[empty=" << variable.empty() << ", size=" << variable.size()                                   \
+              << ", capacity=" << variable.capacity() << "]{\t";                                                       \
+    for (auto const element : vector) std::cout << element << '\t';                                                    \
+    std::cout << '}' << std::endl;
 
 int main() {
     std::cout << "========== Vector<int> ==========" << std::endl;
@@ -88,3 +88,5 @@ int main() {
         _VECTOR_SHOWCASE(vector, reserve(3))
     }
 }
+
+#undef _VECTOR_SHOWCASE
