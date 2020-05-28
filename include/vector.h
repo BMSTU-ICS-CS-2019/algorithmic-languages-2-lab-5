@@ -38,21 +38,21 @@ namespace collection {
     protected:
         /* ************************************************* Checks ************************************************* */
 
-        inline void copyArrayNoChecks(ConstPointer originalArray, size_t const size) {
+        inline void copyArrayNoChecks(ConstPointer originalArray, size_t const size) const {
             for (size_t i = 0; i < size; ++i) Memory::construct(allocator_, array_ + i, *(originalArray + i));
         }
 
-        inline void throwOutOfRange(size_t const index) {
+        inline void throwOutOfRange(size_t const index) const {
             throw std::out_of_range("Index " + std::to_string(index) + " should be < size " + std::to_string(size_));
         }
 
-        inline void throwOutOfRangeEmpty() { throw std::out_of_range("Vector is empty"); }
+        inline void throwOutOfRangeEmpty() const { throw std::out_of_range("Vector is empty"); }
 
-        inline void checkRange(size_t const index) {
+        inline void checkRange(size_t const index) const {
             if (index >= size_) throwOutOfRange(index);
         }
 
-        inline void checkNotEmpty() {
+        inline void checkNotEmpty() const {
             if (size_ == 0) throwOutOfRangeEmpty();
         }
 
